@@ -31,7 +31,7 @@ example usage for all queues, ignoring the "celery" ones:
 ```
 ./rabbitmq_queue_info.py --endpoint="http://mozart.mycluster.hysds.io:15673" --username=mee --passwd=mypass | grep -v celery
 
-(mozart) hysdsops@ip-100-67-33-56:/tmp$ python rabbitmq_queue_info.py --endpoint="http://e-jobs.aria.hysds.io:15672" --username=guest --passwd=guest | grep -v celery
+$ python rabbitmq_queue_info.py --endpoint="http://mozart.mycluster.hysds.io:15673" --username=guest --passwd=guest | grep -v celery
 aria-job_worker-large running 1 0
 asf-job_worker-large running 0 0
 dataset_processed running 0 0

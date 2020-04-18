@@ -14,7 +14,7 @@
 #   <queue name> <state> <messages_ready> <messages_unacknowledged>
 #
 # example usage:
-#   rabbitmq_queue.py --endpoint="https://mozart.mycluster.hysds.io:15673" --username=guest --passwd=guest [--queue=standard_product-s1gunw-topsapp-pleiade]
+#   rabbitmq_queue.py --endpoint="https://mozart.mycluster.hysds.io:15673" --username=guest --passwd=guest [--queue=standard_product-s1gunw-topsapp-pleiades]
 #   standard_product-s1gunw-topsapp-pleiades running 0 0
 #
 # ---------------------------------------------------------
@@ -177,7 +177,7 @@ def print_queue(queue):
 
 def show_usage():
     print('Usage:\n')
-    print('rabbitmq_queue.py --endpoint="https://mozart.mycluster.hysds.io:15673" --username=guest --passwd=guest [--queue=standard_product-s1gunw-topsapp-pleiade] \n' )
+    print('rabbitmq_queue.py --endpoint="https://mozart.mycluster.hysds.io:15673" --username=guest --passwd=guest [--queue=standard_product-s1gunw-topsapp-pleiades] \n' )
 
 
 import sys, getopt

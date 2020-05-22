@@ -26,12 +26,8 @@ export PYTHONPATH="${PYTHONPATH}:${BUILD_LIB}"
 
 # rabbitmq endpoint
 RABBITMQ_API_ENDPOINT="https://mozart.mycluster.hysds.io:15673"
-RABBITMQ_USERNAME="meee"
-RABBITMQ_PASSWD="mypass"
-
-RABBITMQ_API_ENDPOINT="https://100.67.33.56:15673"
-RABBITMQ_USERNAME="hysdsops"
-RABBITMQ_PASSWD="Y2FkNTllND"
+RABBITMQ_USERNAME="username"
+RABBITMQ_PASSWD="mypasswd"
 
 # how often to check rabbitmq endpoint, in unit seconds
 INTERVAL=60

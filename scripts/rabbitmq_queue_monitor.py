@@ -15,7 +15,7 @@
 #   timestamp, queue_name, queue_state, messages_ready, messages_unacknowledged
 #
 # example usage:
-#   rabbitmq_queue.py --endpoint="https://mozart.mycluster.hysds.io:15673" --username=guest --passwd=guest [--queue=standard_product-s1gunw-topsapp-pleiade]
+#   rabbitmq_queue_monitor.py --endpoint="https://mozart.mycluster.hysds.io:15673" --username=guest --passwd=guest [--queue=standard_product-s1gunw-topsapp-pleiade --interval=10]
 #   2020-05-21T22:37:29+00:00 user_rules_dataset running 0 0
 #
 # ---------------------------------------------------------

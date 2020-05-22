@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 # ---------------------------------------------------------
-# This script calls the rabbitmq tool "rabbitmq_queue.py"
+# This script calls the rabbitmq tool "rabbitmq_queue_monitor.py"
 # to query the job queues (ignoring celery queues) and outputs
-# to STDOUT log file in SDSWatch log format. The intent to output
-# to STDOUT is to ease running this script under supervisord.
+# to STDOUT log file in SDSWatch log format.
 # ---------------------------------------------------------
 
 # ------------------------------------------------------------------------------

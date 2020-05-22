@@ -28,9 +28,18 @@ export PYTHONPATH="${PYTHONPATH}:${BUILD_LIB}"
 # input settings
 
 # rabbitmq endpoint
-RABBITMQ_API_ENDPOINT="https://mozart.mycluster.hysds.io:15673"
-RABBITMQ_USERNAME="meee"
-RABBITMQ_PASSWD="mypass"
+### RABBITMQ_API_ENDPOINT="https://mozart.mycluster.hysds.io:15673"
+### RABBITMQ_USERNAME="meee"
+### RABBITMQ_PASSWD="mypass"
+# new Alex cluster
+### RABBITMQ_API_ENDPOINT="https://hfe1.nas.nasa.gov:15673"
+### RABBITMQ_USERNAME="hysdsops"
+### RABBITMQ_PASSWD="Y2FkNTllND"
+# e-cluster
+RABBITMQ_API_ENDPOINT="http://hfe1.nas.nasa.gov:15672"
+RABBITMQ_USERNAME="guest"
+RABBITMQ_PASSWD="guest"
+
 
 RABBITMQ_API_ENDPOINT="https://100.67.33.56:15673"
 RABBITMQ_USERNAME="hysdsops"

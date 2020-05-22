@@ -19,6 +19,10 @@ BASE_PATH=$(cd "${BASE_PATH}"; pwd)
 BASE_NAME=$(basename "${BASH_SOURCE}")
 # ------------------------------------------------------------------------------
 
+# add this package's build to this scripts PYTHONPATH to make it work without install.
+BUILD_LIB=$(cd "${BASE_PATH}/../build/lib/"; pwd)
+export PYTHONPATH="${PYTHONPATH}:${BUILD_LIB}"
+
 
 # ---------------------------------------------------------
 # input settings
@@ -28,13 +32,17 @@ RABBITMQ_API_ENDPOINT="https://mozart.mycluster.hysds.io:15673"
 RABBITMQ_USERNAME="meee"
 RABBITMQ_PASSWD="mypass"
 
-# query interval to rabbitmq, in seconds
+RABBITMQ_API_ENDPOINT="https://100.67.33.56:15673"
+RABBITMQ_USERNAME="hysdsops"
+RABBITMQ_PASSWD="Y2FkNTllND"
+
+# how often to check rabbitmq endpoint, in unit seconds
 INTERVAL=60
 
 # ---------------------------------------------------------
 
 # the tool for rabbitmq query
-RABBITMQ_QUEUE_PY="${BASE_PATH}/rabbitmq_queue.py"
+RABBITMQ_QUEUE_PY="${BASE_PATH}/rabbitmq_queue_monitor.py"
 
 # check if rabbitmq tool file exists
 if [ ! -f "${RABBITMQ_QUEUE_PY}" ]; then
@@ -42,20 +50,12 @@ if [ ! -f "${RABBITMQ_QUEUE_PY}" ]; then
     exit 1
 fi
 
-while true; do
-    TIMESTAMP=$(date +%Y-%m-%dT%H:%M:%S%z)
-
-    ${RABBITMQ_QUEUE_PY} --endpoint="${RABBITMQ_API_ENDPOINT}" --username="${RABBITMQ_USERNAME}" --passwd="${RABBITMQ_PASSWD}" | grep -v celery | while read LINE; do
-        IFS=" " read RABBITMQ_QUEUE RABBITMQ_STATE RABBITMQ_READY RABBITMQ_UNACKED <<< ${LINE}
-        # echo "# RABBITMQ_QUEUE: ${RABBITMQ_QUEUE}"
-        # echo "# RABBITMQ_STATE: ${RABBITMQ_STATE}"
-        # echo "# RABBITMQ_READY: ${RABBITMQ_READY}"
-        # echo "# RABBITMQ_UNACKED: ${RABBITMQ_UNACKED}"
-        echo "${TIMESTAMP} , ${RABBITMQ_API_ENDPOINT} , rabbitmq.queue , ${RABBITMQ_QUEUE} , state, ${RABBITMQ_STATE} "
-        echo "${TIMESTAMP} , ${RABBITMQ_API_ENDPOINT} , rabbitmq.queue , ${RABBITMQ_QUEUE} , ready, ${RABBITMQ_READY} "
-        echo "${TIMESTAMP} , ${RABBITMQ_API_ENDPOINT} , rabbitmq.queue , ${RABBITMQ_QUEUE} , unacked, ${RABBITMQ_UNACKED} "
-    done
-
-    sleep ${INTERVAL}
+# convert output streamed to sdswatch format
+${RABBITMQ_QUEUE_PY} --endpoint="${RABBITMQ_API_ENDPOINT}" --username="${RABBITMQ_USERNAME}" --passwd="${RABBITMQ_PASSWD}" --interval="${INTERVAL}" 2> ${BASE_NAME}.stderr | while IFS= read -r LINE; do
+    # timestamp, queue_name, queue_state, messages_ready, messages_unacknowledged
+    IFS=" " read TIMESTAMP QUEUE STATE READY UNACKED <<< ${LINE}
+    echo "${TIMESTAMP} , ${RABBITMQ_API_ENDPOINT} , rabbitmq.queue , ${QUEUE} , state, ${STATE}"
+    echo "${TIMESTAMP} , ${RABBITMQ_API_ENDPOINT} , rabbitmq.queue , ${QUEUE} , ready, ${READY}"
+    echo "${TIMESTAMP} , ${RABBITMQ_API_ENDPOINT} , rabbitmq.queue , ${QUEUE} , unacked, ${UNACKED}"
 done
 
